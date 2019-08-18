@@ -27,14 +27,16 @@ class CustomerController extends Controller
             ['name' => $name]
         );
 
-        if ($user) {
-            Conversation::create([
-                'subject' => $subject,
-                'customer_id' => $user->id
-            ]);
-        }
+        $conversation = Conversation::create([
+            'subject' => $subject,
+            'customer_id' => $user->id
+        ]);
 
         $token = $user->createToken('Chat Token')->accessToken;
-        return response()->json(['access_token' => $token]);
+        return response()->json([
+            'access_token' => $token,
+            'conversation' => $conversation
+        ]);
+
     }
 }

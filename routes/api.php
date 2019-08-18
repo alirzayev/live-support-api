@@ -19,4 +19,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::post('/customer-login', 'Auth\CustomerController@login');
-Route::post('/messages', 'MessageController@sendMessage')->middleware('isSupporter');
+Route::post('/messages', 'MessageController@sendMessage');
+Route::resource('/conversations', 'ConversationController');

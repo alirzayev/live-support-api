@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 
-class IsSupporter
+class ForceJsonResponse
 {
     /**
      * Handle an incoming request.
@@ -15,14 +15,7 @@ class IsSupporter
      */
     public function handle($request, Closure $next)
     {
-        $user = $request->user('api');
-        if ($user->is_supporter === null) {
-            return response()->json([
-                'success' => false,
-                'message' => "you don't have permission to make this action"
-            ]);
-        }
-
+        $request->headers->set('Accept', 'application/json');
         return $next($request);
     }
 }
